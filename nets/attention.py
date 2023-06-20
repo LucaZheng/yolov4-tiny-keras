@@ -30,7 +30,7 @@ def se_block(input_feature, ratio=16, name=""):
 
 def channel_attention(input_feature, ratio=8, name=""):
 	
-	channel = input_feature._keras_shape[-1]
+	channel = input_feature.shape[-1]
 	
 	shared_layer_one = Dense(channel//ratio,
 							 activation='relu',
@@ -103,9 +103,9 @@ def eca_block(input_feature, b=1, gamma=2, name=""):
 	return output
 
 def ca_block(input_feature, ratio=16, name=""):
-	channel = input_feature._keras_shape[-1]
-	h		= input_feature._keras_shape[1]
-	w		= input_feature._keras_shape[2]
+	channel = input_feature.shape[-1]
+	h		= input_feature.shape[1]
+	w		= input_feature.shape[2]
  
 	x_h = Lambda(lambda x: K.mean(x, axis=2, keepdims=True))(input_feature)
 	x_h = Lambda(lambda x: K.permute_dimensions(x, [0, 2, 1, 3]))(x_h)
